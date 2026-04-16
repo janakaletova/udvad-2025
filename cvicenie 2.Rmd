@@ -1,0 +1,166 @@
+---
+title: "Cvičenie z UDVAD 2"
+author: "JK"
+date: "2026-02-26"
+output: html_document
+---
+
+```{r}
+reticulate::py_require("pandas")
+reticulate::py_require("numpy")
+```
+
+**Úlohy na praktické precvičenie** Na vypracovanie úloh si môžete zvoliť ľubovoľné prostredie pre prácu s jazykom R alebo Python. Úlohy sú rozdelené na niekoľko častí, výsledné riešenia (skripty) nájdete na konci tejto stránky.
+
+**ČASŤ A – Premenné a dátové typy**
+
+**Úloha 1: Základné premenné Vytvorte premenné a priraďte im ľubovoľnú hodnotu:**
+
+meno študenta
+
+vek študenta
+
+výška (v cm)
+
+informácia, či je denný študent (TRUE / FALSE)
+
+Následne urobte tieto kroky:
+
+Identifikujte, aký dátový typ má každá premenná.
+
+Pripočítajte k veku 5 rokov.
+
+Vytvorte vetu: „Študent \_\_\_ má \_\_\_ rokov.“
+
+```{r}
+meno_studenta<-"Jana Kaletová"
+vek_studenta<-19
+vyska_studenta<-160
+denny_student<-TRUE
+class(meno_studenta)
+class(vek_studenta)
+class(denny_student)
+class(vyska_studenta)
+vek_studenta<-vek_studenta+5
+print(paste("Študent",meno_studenta,"má",vek_studenta,"rokov."))
+```
+
+**Úloha 2: Typové správanie**
+
+Vytvorte premennú: vek \<- "20" Skúste k tejto hodnote pripočítať 5. Skúste túto hodnotu vynásobiť 2. Vysvetlite, čo sa stalo. Opravte kód tak, aby operácie fungovali.
+
+```{r}
+vek<-"20"
+vek<-vek+5
+vek<-vek*2
+```
+
+Keď napíšeme vek \<- "20", úvodzovky povedali R-ku, že ide o textový reťazec (character), nie o číslo.
+
+V momente, keď sa pokúša R vykonať vek + 5, R vyhodi chybu: Error in vek + 5 : non-numeric argument to binary operator
+
+```{r}
+vek<-"20"
+vek<-as.numeric(vek)
+print(vek<-vek+5)
+print(vek<-vek*2)
+```
+
+##### ČASŤ B – Numerické vs. kategorické premenné
+
+Úloha 3: Identifikácia typu premennej
+
+vek: Numerické - Diskrétne (celé čísla)
+
+ID študenta: Čísla, ale nie numerické veličiny (ide o nominálnu identifikáciu)
+
+priemerná známka: Numerické - Spojité (reálne čísla)
+
+odbor štúdia: Kategorické - Nominálne ( bez poradia )
+
+počet predmetov: Numerické - Diskrétne
+
+vek: Numerické - Diskrétne (celé čísla)
+
+ID študenta: Čísla, ale nie numerické veličiny (ide o nominálnu identifikáciu)
+
+priemerná známka: Numerické - Spojité (reálne čísla)
+
+odbor štúdia: Kategorické - Nominálne ( bez poradia )
+
+počet predmetov: Numerické - Diskrétne
+
+##### Úloha 4: Hodnotenie testov
+
+Vytvorte premenné: body_test1=75 body_test2=82 body_test3=90 Vypočítajte: celkový počet bodov priemerný počet bodov či študent prešiel(hranica 60 bodov)
+
+```{r}
+body_test1 = 75
+body_test2 = 82
+body_test3 = 90
+vsetky_testy <- c(body_test1, body_test2, body_test3)
+celkovy_pocet <- sum(vsetky_testy)
+print(celkovy_pocet)
+priemer <- mean(c(body_test1, body_test2, body_test3))
+print(priemer)
+if (priemer >= 60) {
+  print("Študent prešiel skúškou.")
+} else {
+  print("Študent neprospel.")
+}
+```
+
+##### ČASŤ C – Kolekcie dát
+
+**Úloha 5: Známky**
+
+Vytvorte kolekciu známok:1.7, 2.0, 1.3, 2.3, 1.0 Vypočítajte: priemernú známku najlepšiu známku najhoršiu známku počet predmetov/početzadaných hodnôt
+
+**Úloha 6: práca s indexovaním**
+
+Použite kolekciu z predchádzajúcej úlohy. Vypíšte prvú známku. Vypíšte poslednú známku. Zmeňte druhú známku na 1.0.
+
+```{r}
+znamky<-c(1.7,2.0,1.3,2.3,1.0)
+priemerna_znamka<-mean(znamky)
+najlepsia_znamka<-min(znamky)
+najhorsia_znamka<-max(znamky)
+pocet_predmetov  <- length(znamky)
+print(znamky)
+print(priemerna_znamka)
+print(najlepsia_znamka)
+print(najhorsia_znamka)
+print(pocet_predmetov)
+prva_znamka<-znamky[1]
+znamky[2]<-1.0
+druha_znamka<-znamky[2]
+print(prva_znamka)
+print(druha_znamka)
+```
+
+##### ČASŤ D – Operácie nad kolekciou
+
+**Úloha 7: Štipendiá**
+
+Máte štipendiá:400, 450, 380, 500, 420 Zvýšte každé štipendium o 50 €. Zistite,ktoré štipendiá sú vyššie ako 450€. Koľko študentov má štipendium vyššie ako 450€?
+
+**Úloha 8: Test – úspešnosť**
+
+Máte nasledovné body z testu:45, 67, 89, 55, 72, 91, 38 Vytvorte logickú kolekciu (TRUE/FALSE),či študent prešiel (hranica 60). Koľko študentov prešlo? Aké percento študentov prešlo?
+
+```{r}
+stipendia<-c(400,450,380,500,420)
+zvysene <- stipendia + 50
+print(stipendia)
+print(zvysene)
+nad_450<-zvysene[zvysene>450]
+print(nad_450)
+print(length(nad_450))
+
+body <- c(45, 67, 89, 55, 72, 91, 38)
+uspesnost <- body >= 60
+pocet_preslo <- sum(uspesnost)
+print(body)
+print(uspesnost)
+print(pocet_preslo)
+```

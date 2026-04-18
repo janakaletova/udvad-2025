@@ -1,1 +1,1 @@
-# udvad-2025
+# udvad-2025 Toto je repozitár pre cvičenia z predmetu Úvod do dátovej vedy.

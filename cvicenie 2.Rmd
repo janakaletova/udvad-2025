@@ -1,7 +1,7 @@
 ---
 title: "Cvičenie z UDVAD 2"
 author: "JK"
-date: "2026-02-26"
+date: "2026-04-18"
 output: html_document
 ---
 
